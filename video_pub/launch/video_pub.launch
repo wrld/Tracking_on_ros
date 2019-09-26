@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <master auto="start"/>
+  <node pkg="video_pub" name="video_pub" type="video_pub" output="screen">
+ 
+ </node>
+</launch> 

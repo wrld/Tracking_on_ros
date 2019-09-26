@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <node pkg="tracking" name="tracking_test" type="tracking_test" output="screen">
+  <param name="begin_frame" type="int" value="3800"/>
+
+ </node>
+</launch> 
+
