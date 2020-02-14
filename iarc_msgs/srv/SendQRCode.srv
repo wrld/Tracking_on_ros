@@ -1,0 +1,4 @@
+int64 channel
+int64[4] code
+---
+bool feedback

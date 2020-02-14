@@ -37,6 +37,21 @@ typedef std::chrono::duration<float> duration;
 using namespace std;
 using namespace cv;
 
+
+
+class my_target
+{
+public:
+  Mat pic;
+  Rect bbox;
+  int num;
+  int match;
+  Scalar my_color;
+  vector<Point> my_history;
+  double match_sim(vector<my_target> old);
+
+};
+
 class Tracking_Melon{
 public:  
   Mat HSV,mask,rode,dilate;
@@ -55,11 +70,13 @@ public:
  vector<Rect> roi;
   int hand_signal=1;
   int ifdetect=0;
-  MultiTracker trackers;
-   
+  // MultiTracker trackers;
+   vector<my_target> cars;
+   vector<my_target> new_cars;
+
   vector<Rect2d> obj;
   vector<Ptr<Tracker>> algorithms;
-  vector<cv::Point> history_pos;
+  // vector<cv::Point> history_pos;
   std_msgs::Int8 if_track;
     bool ok=0;
   Point2f GlobalCenter;
@@ -69,18 +86,22 @@ public:
   ros::Publisher if_track_pub;
   ros::Subscriber hand_sub;
   ros::Subscriber bounding_sub;
+  vector<Scalar> colors;  
+
   image_transport::Subscriber camera_subscriber;
   iarc_msgs::RoiPos roi_pos;
   vector<darknet_ros_msgs::BoundingBox> roi_recv;
   void hand_callback(const std_msgs::Int8::ConstPtr& msg);
   void imageCallback(const sensor_msgs::ImageConstPtr& msg);
   void bounding_box_callback(const darknet_ros_msgs::BoundingBoxes& msg);
+  void getRandomColors(vector<Scalar>& colors, int numColors);
   void get_roi();
   void basic_detection();
   void mainloop();
   Tracking_Melon();
   ~Tracking_Melon();
   void init();
+  friend class my_target;
 
 };
 

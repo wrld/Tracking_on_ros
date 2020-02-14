@@ -2,6 +2,7 @@
 <launch>
   <master auto="start"/>
   <node pkg="video_pub" name="video_pub" type="video_pub" output="screen">
- 
+  <param name="video_name" type="string" value="/home/gjx/视频/blue_robot.mp4"/>
+    
  </node>
 </launch> 

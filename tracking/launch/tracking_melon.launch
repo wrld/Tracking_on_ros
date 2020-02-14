@@ -4,8 +4,6 @@
   <node pkg="tracking" name="tracking_test" type="tracking_test" output="screen">
 
  </node>
-<include file="$(find mk_gimbalctr)/launch/mk_gimbalctr.launch"/>
-<include file="$(find rosserial_python)/launch/rosserial_python.launch"/>
 
 </launch> 
 
