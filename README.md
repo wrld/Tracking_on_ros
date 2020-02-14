@@ -27,4 +27,3 @@ roslaunch darknet_ros darknet_ros.launch
 roslaunch tracking tracking.launch 
 ```
 ## result
-![img](https://github.com/wrld/Tracking_on_ros/blob/master/tracking_car.gif)
