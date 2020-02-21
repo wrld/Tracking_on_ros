@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- <?xml version="1.0" encoding="utf-8"?> -->
 <launch>
-  <master auto="start"/>
-  <node pkg="video_pub" name="video_pub" type="video_pub" output="screen">
-  <param name="video_name" type="string" value="/home/gjx/视频/blue_robot.mp4"/>
-    
+  <node  name="video_pub" pkg="video_pub" type="video_pub" respawn="false" output="screen">
+  <param name="video_name"         type="string" value="/media/gjx/GJX/video_pic/VID_20190918_223654.mp4"/>  
+
  </node>
 </launch> 

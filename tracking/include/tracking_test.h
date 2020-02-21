@@ -1,28 +1,26 @@
 #ifndef MUL_TRACKING
 #define MUL_TRACKING
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdio>
-#include <chrono>
-#include <ros/ros.h>
-#include "std_msgs/Int8.h"
-#include <opencv2/opencv.hpp>
-#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/highgui/highgui.hpp"
-#include "include/kcftracker.hpp"
-#include "iarc_msgs/RoiPos.h"
-#include<cv_bridge/cv_bridge.h>
-#include<sensor_msgs/image_encodings.h>
-#include<image_transport/image_transport.h>
-#include "iarc_msgs/RoiPos.h"
-#include <darknet_ros_msgs/BoundingBoxes.h>
+#include <cv_bridge/cv_bridge.h>
 #include <darknet_ros_msgs/BoundingBox.h>
+#include <darknet_ros_msgs/BoundingBoxes.h>
 #include <darknet_ros_msgs/CheckForObjectsAction.h>
+#include <image_transport/image_transport.h>
+#include <ros/ros.h>
+#include <sensor_msgs/image_encodings.h>
+#include <chrono>
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <opencv2/opencv.hpp>
 #include <opencv2/tracking.hpp>
-#include<vector>
-
+#include <string>
+#include <vector>
+#include "iarc_msgs/RoiPos.h"
+#include "include/kcftracker.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "std_msgs/Int8.h"
 
 #define HOG 1
 #define FIXEDWINDOW 1
@@ -37,11 +35,8 @@ typedef std::chrono::duration<float> duration;
 using namespace std;
 using namespace cv;
 
-
-
-class my_target
-{
-public:
+class my_target {
+ public:
   Mat pic;
   Rect bbox;
   int num;
@@ -49,36 +44,36 @@ public:
   Scalar my_color;
   vector<Point> my_history;
   double match_sim(vector<my_target> old);
-
+  double getMSSIM(Mat inputimage1, Mat inputimage2);
 };
 
-class Tracking_Melon{
-public:  
-  Mat HSV,mask,rode,dilate;
+class Tracking_Melon {
+ public:
+  Mat HSV, mask, rode, dilate;
   int begin_frame;
   int img_height;
   int img_width;
   Mat frame;
   double dx = 0;
   double dy = 0;
-  int loopRate_=10;
-  int if_recieve =0;
+  int loopRate_ = 10;
+  int if_recieve = 0;
   cv::Point P1;
   cv::Point P2;
   VideoCapture capture;
   long frameToStart;
- vector<Rect> roi;
-  int hand_signal=1;
-  int ifdetect=0;
+  vector<Rect> roi;
+  int hand_signal = 1;
+  int ifdetect = 0;
   // MultiTracker trackers;
-   vector<my_target> cars;
-   vector<my_target> new_cars;
+  vector<my_target> cars;
+  vector<my_target> new_cars;
 
   vector<Rect2d> obj;
   vector<Ptr<Tracker>> algorithms;
   // vector<cv::Point> history_pos;
   std_msgs::Int8 if_track;
-    bool ok=0;
+  bool ok = 0;
   Point2f GlobalCenter;
   float Radius;
   vector<kcf::KCFTracker*> tracker;
@@ -86,7 +81,7 @@ public:
   ros::Publisher if_track_pub;
   ros::Subscriber hand_sub;
   ros::Subscriber bounding_sub;
-  vector<Scalar> colors;  
+  vector<Scalar> colors;
 
   image_transport::Subscriber camera_subscriber;
   iarc_msgs::RoiPos roi_pos;
@@ -102,7 +97,6 @@ public:
   ~Tracking_Melon();
   void init();
   friend class my_target;
-
 };
 
 // Ptr<Tracker> createTrackerByName(string trackerType)
@@ -128,7 +122,8 @@ public:
 //   {
 //     cout << "Incorrect tracker name" << endl;
 //     cout << "Available trackers are: " << endl;
-//     for (vector<string>::iterator it = trackerTypes.begin(); it != trackerTypes.end(); ++it)
+//     for (vector<string>::iterator it = trackerTypes.begin(); it !=
+//     trackerTypes.end(); ++it)
 //     {
 //       std::cout << " " << *it << endl;
 //     }
